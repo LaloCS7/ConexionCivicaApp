@@ -5,12 +5,17 @@ import { AuthContext } from '../context/AuthContext';
 import { useLocation } from '../hooks/useLocation';
 import { LoadingScreen } from '../pages/LoadingScreen';
 import { Fab } from './Fab';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
+    attachReport: () => void;
+    showReports: () => void;
     markers?: Marker[];
 }
 
-export const Map = ({ markers }: Props) => {
+export const Map = ({ attachReport, showReports, markers }: Props) => {
+
+    const navigation = useNavigation();
 
     const { user, logOut } = useContext( AuthContext );
 
@@ -113,10 +118,21 @@ export const Map = ({ markers }: Props) => {
             }}    
         />
 
+        {/* Boton ver reportes */}
+        <Fab 
+            iconName="list-outline"
+            onPress={ showReports }
+            style={{
+                position: 'absolute',
+                bottom: 130,
+                right: 20,
+            }}    
+        />
+
         {/* Agregar reporte */}
         <Fab 
             iconName="add-circle-outline"
-            onPress={ centerPosition }
+            onPress={ () => attachReport() }
             style={{
                 position: 'absolute',
                 bottom: 75,

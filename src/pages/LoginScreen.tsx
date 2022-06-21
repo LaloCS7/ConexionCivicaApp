@@ -35,7 +35,6 @@ export const LoginScreen = ({ navigation }: Props) => {
   
 
   const onLogin = () => {
-    console.log({email, password});
     Keyboard.dismiss();
     signIn({ correo: email, password: password }); //correo es como esta en la bd, email es como esta en el fe
   }

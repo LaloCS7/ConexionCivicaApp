@@ -71,6 +71,7 @@ export const ReportsProvider = ({ children }: any) => {
 
     //Funcion para cargar la imagen
     const uploadImage = async ( data: ImagePickerResponse, id: string ) => {
+        console.log('uploadImage')
         const fileToUpload = {
             uri: data.assets![0].uri,
             type: data.assets![0].type,

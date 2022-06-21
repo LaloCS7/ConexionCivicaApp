@@ -32,7 +32,6 @@ export const RegisterScreen = ( { navigation }: Props) => {
   }, [ errorMessage ])
 
   const onRegister = () => {
-    console.log({name, email, password});
     Keyboard.dismiss();
     signUp({
       nombre: name,

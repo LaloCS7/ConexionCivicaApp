@@ -9,6 +9,7 @@ import { ReportsStackParams } from '../navigator/ReportsNavigator';
 import { useCategories } from '../hooks/useCategories';
 import { useForm } from '../hooks/useForm';
 import { ReportsContext } from '../context/ReportsContext';
+import { useLocation } from '../hooks/useLocation';
 
 
 interface Props extends StackScreenProps<ReportsStackParams, 'ReportScreen'>{}; //Stack para traer los datos
@@ -17,6 +18,12 @@ interface Props extends StackScreenProps<ReportsStackParams, 'ReportScreen'>{}; 
 
 
 export const ReportScreen = ({ navigation, route }: Props) => {
+
+  const { userLocation } = useLocation();
+
+  const { latitude, longitude } = userLocation;
+
+  console.log(latitude);
 
   const { id = '', name = '' } = route.params;
 
@@ -131,6 +138,8 @@ export const ReportScreen = ({ navigation, route }: Props) => {
         }
         </Picker>
 
+        
+
         {
           /*  Valida si hay imagen se muestre en pantalla */
           ( img.length > 0  && !tempUri ) && (
@@ -161,7 +170,7 @@ export const ReportScreen = ({ navigation, route }: Props) => {
         }
 
         {
-          (id.length > 0) && (
+          (id.length == 0) && (
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
               <Button
                 title="Tomar foto"
@@ -180,7 +189,7 @@ export const ReportScreen = ({ navigation, route }: Props) => {
         }
 
         <View style={{ justifyContent: 'center', marginTop: 10 }}>
-          {/* Boton */}
+          {/* Boton guardar*/}
           <Button
             title="Guardar"
             onPress={ saveOrUpdate }  
