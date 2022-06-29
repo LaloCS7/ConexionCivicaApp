@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, Button, Image} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TextInput, Button, Image, Share} from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -13,9 +13,6 @@ import { useLocation } from '../hooks/useLocation';
 
 
 interface Props extends StackScreenProps<ReportsStackParams, 'ReportScreen'>{}; //Stack para traer los datos
-
-
-
 
 export const ReportScreen = ({ navigation, route }: Props) => {
 
@@ -111,7 +108,7 @@ export const ReportScreen = ({ navigation, route }: Props) => {
 
       <ScrollView>
 
-        <Text style={ styles.label }>Nombre: </Text>
+        <Text style={ styles.label }>Descripción: </Text>
         <TextInput 
           placeholder='Descripción'
           style={ styles.textInput }
@@ -138,6 +135,15 @@ export const ReportScreen = ({ navigation, route }: Props) => {
         }
         </Picker>
 
+        {
+          (id.length > 0) && (
+            <>
+            <Text style={ styles.label }>Fecha: 21/jun/22 </Text>
+            <Text style={ styles.label }>Estado: Abiero </Text>
+            </>
+          )
+        }
+
         
 
         {
@@ -158,6 +164,7 @@ export const ReportScreen = ({ navigation, route }: Props) => {
         {
           /* TODO Mostrar imagen temporal */
           ( tempUri ) && (
+            <>
             <Image 
               source={{ uri: tempUri }}
               style={{
@@ -166,6 +173,15 @@ export const ReportScreen = ({ navigation, route }: Props) => {
                 height: 300
               }}
             />
+            <Button
+                title="Compartir"
+                onPress={ () => Share.share({
+                  message:
+                    nombre, 
+                })}  
+                color="#5856D6"          
+              />
+            </>
           )
         }
 
@@ -173,7 +189,7 @@ export const ReportScreen = ({ navigation, route }: Props) => {
           (id.length == 0) && (
             <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
               <Button
-                title="Tomar foto"
+                title="Cámara"
                 onPress={ takePhoto }  
                 color="#5856D6"          
               />
